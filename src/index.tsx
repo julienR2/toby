@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen'
 
 import { useStoreHydrated } from './hooks/useStoreHydrated'
 import { useStore } from './hooks/useStore'
+import Signin from './screens/Signin'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -21,8 +22,8 @@ export default function Root() {
 
   return (
     <View style={styles.container}>
-      <Text>Open up App to start working on your app!</Text>
       <StatusBar style='auto' />
+      <Signin />
     </View>
   )
 }
