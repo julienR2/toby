@@ -1,16 +1,23 @@
-import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import * as SplashScreen from 'expo-splash-screen'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { NavigationContainer } from '@react-navigation/native'
 
-import { useStoreHydrated } from './hooks/useStoreHydrated'
-import { useStore } from './hooks/useStore'
+import { RootStackParamList } from '../types/navigation'
+
 import Signin from './screens/Signin'
+import App from './screens/App'
+import { useStoreHydrated } from './hooks/useStoreHydrated'
+import { useStore, useStoreItem } from './hooks/useStore'
 
 SplashScreen.preventAutoHideAsync()
 
+const Stack = createNativeStackNavigator<RootStackParamList>()
+
 export default function Root() {
   const { isHydrated } = useStoreHydrated({ store: useStore })
+  const [token] = useStoreItem('token')
 
   React.useLayoutEffect(() => {
     if (!isHydrated) return
@@ -21,18 +28,15 @@ export default function Root() {
   if (!isHydrated) return null
 
   return (
-    <View style={styles.container}>
-      <StatusBar style='auto' />
-      <Signin />
-    </View>
+    <NavigationContainer>
+      <StatusBar style='dark' />
+      <Stack.Navigator
+        initialRouteName={token ? 'App' : 'Signin'}
+        screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+      >
+        <Stack.Screen name='App' component={App} />
+        <Stack.Screen name='Signin' component={Signin} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

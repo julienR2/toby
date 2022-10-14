@@ -49,7 +49,7 @@ const Input = ({
         toValue: 0,
       }).start()
     },
-    [],
+    [onFocus],
   )
 
   const onInputBlur = React.useCallback(
@@ -64,7 +64,7 @@ const Input = ({
         toValue: MAX_PAN_Y,
       }).start()
     },
-    [length],
+    [length, onBlur],
   )
 
   return (

@@ -1,40 +1,85 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { RootStackScreenProps } from '../../types/navigation'
 import Button from '../components/Button'
 
 import Input from '../components/Input'
 import Logo from '../components/Logo'
+import Spinner from '../components/Spinner'
+import { useSignin } from '../hooks/useApi'
+import { useStoreItem } from '../hooks/useStore'
+import colors from '../theme/colors'
 
-const Signin = () => {
+const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
+  const { signin, loading } = useSignin()
+  const [error, setError] = React.useState(false)
+  const [token, setToken] = useStoreItem('token')
+
+  const onLoginPress = React.useCallback(async () => {
+    try {
+      const data = await signin(email, password)
+
+      setToken(data.token)
+
+      navigation.reset({ index: 0, routes: [{ name: 'App' }] })
+    } catch (error) {
+      setError(true)
+    }
+  }, [email, password, signin, navigation])
+
+  const onEmailChange = React.useCallback(
+    (text: string) => {
+      if (error) {
+        setError(false)
+      }
+
+      setEmail(text)
+    },
+    [error],
+  )
+
+  const onPasswordChange = React.useCallback(
+    (text: string) => {
+      if (error) {
+        setError(false)
+      }
+
+      setPassword(text)
+    },
+    [error],
+  )
 
   return (
     <View style={styles.wrapper}>
       <Logo style={styles.logo} size={80} />
       <Text style={styles.label}>Log into Toby</Text>
       <View style={styles.inputsWrapper}>
+        {error && (
+          <View style={styles.errorWrapper}>
+            <Text style={styles.error}>Email or password incorrect</Text>
+          </View>
+        )}
         <Input
           label='Email'
           style={styles.input}
-          onChangeText={setEmail}
+          onChangeText={onEmailChange}
           value={email}
         />
         <Input
           label='Password'
           style={styles.input}
-          onChangeText={setPassword}
+          onChangeText={onPasswordChange}
           value={password}
           secureTextEntry
         />
       </View>
       <View style={styles.gap} />
-      <Button style={styles.button}>Login</Button>
-
-      {/* <View style={styles.inputsWrapper}>
-        {!!error && <Error text={error} onClose={this.onClose} />}
-      </View>
-      <Spinner overlay visible={loading} /> */}
+      <Button style={styles.button} onPress={onLoginPress}>
+        Login
+      </Button>
+      <Spinner showOverlay visible={loading} />
     </View>
   )
 }
@@ -58,6 +103,16 @@ const styles = StyleSheet.create({
   inputsWrapper: {
     marginTop: 24,
     width: '100%',
+  },
+  errorWrapper: {
+    borderRadius: 2,
+    backgroundColor: colors.primary,
+    padding: 8,
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  error: {
+    color: colors.white,
   },
   input: {
     marginBottom: 32,

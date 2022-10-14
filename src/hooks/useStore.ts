@@ -3,6 +3,8 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import { ignoreList } from '../utils/store'
+
 type State = {
   token?: string
   state?: any
@@ -14,8 +16,8 @@ type Controls = {
   flush: () => void
 }
 
-type UIState = State & {
-  controls: Controls
+type StoreState = State & {
+  controls?: Controls
 }
 
 const DEFAULT_STATE = {
@@ -24,7 +26,7 @@ const DEFAULT_STATE = {
 }
 
 export const useStore = create(
-  persist<UIState>(
+  persist<StoreState>(
     (set, get) => ({
       ...DEFAULT_STATE,
       controls: {
@@ -36,26 +38,30 @@ export const useStore = create(
     {
       name: 'toby-store',
       getStorage: () => AsyncStorage,
+      partialize: ignoreList(['controls']),
     },
   ),
 )
 
 // State
 export const useStoreItemValue = <K extends keyof State>(key: K): State[K] => {
-  const itemSelector = React.useCallback((state: UIState) => state[key], [key])
+  const itemSelector = React.useCallback(
+    (state: StoreState) => state[key],
+    [key],
+  )
 
   return useStore(itemSelector)
 }
 
 // Controls
-const controlsSelector = (state: UIState) => state.controls
+const controlsSelector = (state: StoreState) => state.controls
 
 export const useStoreControls = () => {
   return useStore(controlsSelector)
 }
 
 // Utils
-export const useUIStoreItem = <K extends keyof State>(
+export const useStoreItem = <K extends keyof State>(
   key: K,
 ): [State[K], (value: State[K]) => void] => {
   const item = useStoreItemValue(key)
