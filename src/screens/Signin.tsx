@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import { RootStackScreenProps } from '../../types/navigation'
 import Button from '../components/Button'
+import { Logo } from '../components/Icons'
 import Input from '../components/Input'
-import Logo from '../components/Logo'
 import Spinner from '../components/Spinner'
-import { useStoreItem } from '../hooks/useStore'
+import { useStoreControls, useStoreItem } from '../hooks/useStore'
 import colors from '../theme/colors'
 import { post } from '../utils/fetch'
 
@@ -16,6 +16,7 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
   const [error, setError] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [, setToken] = useStoreItem('token')
+  const { flush } = useStoreControls()
 
   const onLoginPress = React.useCallback(async () => {
     setError(false)
@@ -59,9 +60,13 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
     [error],
   )
 
+  React.useEffect(() => {
+    flush()
+  }, [flush])
+
   return (
     <View style={styles.wrapper}>
-      <Logo style={styles.logo} size={80} />
+      <Logo style={styles.logo} size={80} color={colors.primary} />
       <Text style={styles.label}>Log into Toby</Text>
       <View style={styles.inputsWrapper}>
         {error && (

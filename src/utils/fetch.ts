@@ -24,7 +24,7 @@ export const get = async (
   )
 
   const response = await fetch(url + queryString(params), args)
-  console.log('response', response.status)
+
   if (!response.ok) {
     throw new Error()
   }

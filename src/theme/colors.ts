@@ -22,7 +22,7 @@ const colors = {
   primaryTransparentLight: rgba(plain.primary, 0.4),
   secondaryTransparent: rgba(plain.secondary, 0.7),
   secondaryTransparentLight: rgba(plain.secondary, 0.4),
-  blackTransparent: rgba(plain.black, 0.6),
+  blackTransparent: rgba(plain.black, 0.8),
 }
 
 export default colors
