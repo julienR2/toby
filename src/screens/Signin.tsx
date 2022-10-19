@@ -6,20 +6,26 @@ import Button from '../components/Button'
 import Input from '../components/Input'
 import Logo from '../components/Logo'
 import Spinner from '../components/Spinner'
-import { useSignin } from '../hooks/useApi'
 import { useStoreItem } from '../hooks/useStore'
 import colors from '../theme/colors'
+import { post } from '../utils/fetch'
 
 const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const { signin, loading } = useSignin()
   const [error, setError] = React.useState(false)
-  const [token, setToken] = useStoreItem('token')
+  const [loading, setLoading] = React.useState(false)
+  const [, setToken] = useStoreItem('token')
 
   const onLoginPress = React.useCallback(async () => {
+    setError(false)
+    setLoading(true)
+
     try {
-      const data = await signin(email, password)
+      const data: { token: string } = await post(
+        'https://api2.gettoby.com/v2/users/login',
+        { params: { email, password } },
+      )
 
       setToken(data.token)
 
@@ -27,7 +33,9 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
     } catch (error) {
       setError(true)
     }
-  }, [email, password, signin, navigation])
+
+    setLoading(false)
+  }, [email, password, navigation])
 
   const onEmailChange = React.useCallback(
     (text: string) => {
