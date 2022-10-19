@@ -21,6 +21,7 @@ type State = {
   token?: string
   lists?: { id: string; title: string; teamId: string; cards: Card[] }[]
   teams?: { id: string; name: string; isDefault: boolean }[]
+  showDonation?: boolean
 }
 
 type Controls = {
@@ -37,6 +38,7 @@ const DEFAULT_STATE = {
   token: undefined,
   lists: [],
   teams: [],
+  showDonation: true,
 }
 
 export const useStore = create(

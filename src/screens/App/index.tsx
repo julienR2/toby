@@ -13,6 +13,7 @@ import { RootStackScreenProps } from '../../../types/navigation'
 import Coffee, { CoffeeHandle } from '../../components/Coffee'
 import IconButton from '../../components/IconButton'
 import Spinner from '../../components/Spinner'
+import { useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import Tab from './Tab'
 import { useFetchBookmarks } from './hooks'
@@ -21,10 +22,24 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   const coffeeRef = React.useRef<CoffeeHandle | null>(null)
   const { loading, teams, fetchBookmarks } = useFetchBookmarks()
   const layout = useWindowDimensions()
+  const [showDonation, setShowDonation] = useStoreItem('showDonation')
 
   React.useEffect(() => {
     fetchBookmarks()
   }, [fetchBookmarks])
+
+  React.useLayoutEffect(() => {
+    if (!showDonation) return
+
+    const timeoutId = setTimeout(() => {
+      setShowDonation(false)
+      coffeeRef.current.show()
+    }, 5000)
+
+    return () => {
+      clearTimeout(timeoutId)
+    }
+  }, [showDonation, setShowDonation])
 
   const [index, setIndex] = React.useState(0)
 
