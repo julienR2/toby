@@ -20,7 +20,7 @@ const colors = {
   ...plain,
   whiteTransparent: rgba(plain.white, 0.8),
   primaryTransparentLight: rgba(plain.primary, 0.4),
-  secondaryTransparent: rgba(plain.secondary, 0.8),
+  secondaryTransparent: rgba(plain.secondary, 0.7),
   secondaryTransparentLight: rgba(plain.secondary, 0.4),
   blackTransparent: rgba(plain.black, 0.6),
 }

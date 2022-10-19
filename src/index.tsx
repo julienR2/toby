@@ -10,6 +10,7 @@ import Signin from './screens/Signin'
 import App from './screens/App'
 import { useStoreHydrated } from './hooks/useStoreHydrated'
 import { useStore, useStoreItem } from './hooks/useStore'
+import colors from './theme/colors'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -29,7 +30,7 @@ export default function Root() {
 
   return (
     <NavigationContainer>
-      <StatusBar style='dark' />
+      <StatusBar style='light' backgroundColor={colors.secondary} />
       <Stack.Navigator
         initialRouteName={token ? 'App' : 'Signin'}
         screenOptions={{ headerShown: false, animation: 'slide_from_right' }}

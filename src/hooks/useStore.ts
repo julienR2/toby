@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { ignoreList } from '../utils/store'
 
-type Card = {
+export type Card = {
   id: string
   listId: string
   title: string
@@ -19,8 +19,8 @@ type Card = {
 
 type State = {
   token?: string
-  lists: { id: string; title: string; teamId: string; cards: Card[] }[]
-  teams: { id: string; name: string; isDefault: boolean }[]
+  lists?: { id: string; title: string; teamId: string; cards: Card[] }[]
+  teams?: { id: string; name: string; isDefault: boolean }[]
 }
 
 type Controls = {
@@ -37,7 +37,6 @@ const DEFAULT_STATE = {
   token: undefined,
   lists: [],
   teams: [],
-  groups: [],
 }
 
 export const useStore = create(
