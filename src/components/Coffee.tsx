@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { BackHandler, Pressable, StyleSheet, Text, View } from 'react-native'
+import { BackHandler, Pressable, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import WebView from 'react-native-webview'
 
 import colors from '../theme/colors'
+import Text from './Text'
 
 const SOURCE = {
   uri: 'https://www.buymeacoffee.com/widget/page/julienr2?description=Support%20me%20on%20Buy%20me%20a%20coffee!&color=%235F7FFF',
@@ -18,16 +19,7 @@ export type CoffeeHandle = {
 const Coffee = React.forwardRef<CoffeeHandle, CoffeeProps>((_, ref) => {
   const [visible, setVisible] = React.useState(false)
 
-  React.useImperativeHandle(
-    ref,
-    () => ({
-      show: () => {
-        console.log('here ??')
-        setVisible(true)
-      },
-    }),
-    [],
-  )
+  React.useImperativeHandle(ref, () => ({ show: () => setVisible(true) }), [])
 
   const hide = React.useCallback(() => {
     setVisible(false)
@@ -57,17 +49,23 @@ const Coffee = React.forwardRef<CoffeeHandle, CoffeeProps>((_, ref) => {
             pressed && styles.closePressed,
           ]}
           onPress={hide}>
-          <Text style={styles.closeLabel}>Close</Text>
+          <Text color="secondary" weight="medium">
+            Close
+          </Text>
         </Pressable>
       </View>
       <View style={styles.modal}>
         <View style={styles.message}>
-          <Text style={styles.text}>Hey 👋</Text>
-          <Text style={styles.text}>
+          <Text type="label" weight="regular" style={styles.text}>
+            Hey 👋
+          </Text>
+          <Text type="label" weight="regular" style={styles.text}>
             I'm Julien, I love creating little apps to make life easier. If you
             happened to like this one, you can buy me a coffee or a beer !
           </Text>
-          <Text style={styles.text}>Cheers 🍻</Text>
+          <Text type="label" weight="regular" style={styles.text}>
+            Cheers 🍻
+          </Text>
         </View>
       </View>
       <View style={[styles.modal, styles.webviewModal]}>
@@ -115,8 +113,6 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   text: {
-    fontSize: 16,
-    fontWeight: '400',
     marginBottom: 8,
   },
   closeWrapper: {
@@ -131,11 +127,6 @@ const styles = StyleSheet.create({
   },
   closePressed: {
     opacity: 0.8,
-  },
-  closeLabel: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.secondary,
   },
 })
 

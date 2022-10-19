@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Text,
   TextInput,
   View,
   StyleSheet,
@@ -12,6 +11,7 @@ import {
 } from 'react-native'
 
 import colors from '../theme/colors'
+import Text from './Text'
 
 const MAX_PAN_Y = 24
 
@@ -76,7 +76,9 @@ const Input = ({
             transform: [{ translateY: panY.current }],
           },
         ]}>
-        <Text style={styles.label}>{label}</Text>
+        <Text type="label" color="secondary">
+          {label}
+        </Text>
       </Animated.View>
       <View style={styles.inputWrapper}>
         <TextInput
@@ -90,7 +92,7 @@ const Input = ({
           {...props}
         />
         {secureTextEntry && length > 0 && (
-          <Text style={styles.showPassword} onPress={onShowPasswordPress}>
+          <Text type="caption" color="secondary" onPress={onShowPasswordPress}>
             {showPassword ? 'Hide' : 'Show'}
           </Text>
         )}
@@ -108,11 +110,6 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
   },
-  label: {
-    color: colors.secondary,
-    fontSize: 16,
-    fontWeight: '500',
-  },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -124,10 +121,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingTop: 12,
     paddingBottom: 4,
-  },
-  showPassword: {
-    fontSize: 12,
-    color: colors.secondary,
   },
   suffixes: {
     marginRight: 8,

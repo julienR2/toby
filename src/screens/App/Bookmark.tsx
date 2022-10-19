@@ -1,6 +1,7 @@
 import React from 'react'
-import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Linking, Pressable, StyleSheet, View } from 'react-native'
 
+import Text from '../../components/Text'
 import { Card } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 
@@ -25,7 +26,11 @@ const Bookmark = ({ item }: BookmarkProps) => {
   }, [item?.url])
 
   if (!item) {
-    return <Text style={styles.empty}>This Collection is empty.</Text>
+    return (
+      <Text style={styles.empty} color="secondaryTransparent">
+        This Collection is empty.
+      </Text>
+    )
   }
 
   return (
@@ -42,13 +47,13 @@ const Bookmark = ({ item }: BookmarkProps) => {
               onError={onFaviconError}
             />
           )}
-          <Text style={styles.title} numberOfLines={2}>
+          <Text type="label" color="secondary" numberOfLines={2}>
             {title}
           </Text>
         </View>
         {description && (
           <View style={styles.descriptionWrapper}>
-            <Text style={styles.description} numberOfLines={1}>
+            <Text color="secondaryTransparent" numberOfLines={1}>
               {description}
             </Text>
           </View>
@@ -77,24 +82,15 @@ const styles = StyleSheet.create({
     width: 20,
     marginRight: 8,
   },
-  title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.secondary,
-  },
   descriptionWrapper: {
     borderTopWidth: 1,
     borderColor: colors.secondaryTransparentLight,
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
-  description: {
-    color: colors.secondaryTransparent,
-  },
   empty: {
     marginHorizontal: 4,
     marginVertical: 8,
-    color: colors.secondaryTransparent,
   },
 })
 

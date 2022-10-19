@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import { RootStackScreenProps } from '../../types/navigation'
 import Button from '../components/Button'
 import { Logo } from '../components/Icons'
 import Input from '../components/Input'
 import Spinner from '../components/Spinner'
+import Text from '../components/Text'
 import { useStoreControls, useStoreItem } from '../hooks/useStore'
 import colors from '../theme/colors'
 import { post } from '../utils/fetch'
@@ -67,11 +68,13 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
   return (
     <View style={styles.wrapper}>
       <Logo style={styles.logo} size={80} color={colors.primary} />
-      <Text style={styles.label}>Log into Toby</Text>
+      <Text type="title" style={styles.label} weight="medium">
+        Log into Toby
+      </Text>
       <View style={styles.inputsWrapper}>
         {error && (
           <View style={styles.errorWrapper}>
-            <Text style={styles.error}>Email or password incorrect</Text>
+            <Text color="white">Email or password incorrect</Text>
           </View>
         )}
         <Input
@@ -109,8 +112,6 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   label: {
-    fontWeight: '500',
-    fontSize: 20,
     marginBottom: 24,
   },
   inputsWrapper: {
@@ -123,9 +124,6 @@ const styles = StyleSheet.create({
     padding: 8,
     alignItems: 'center',
     marginBottom: 24,
-  },
-  error: {
-    color: colors.white,
   },
   input: {
     marginBottom: 32,

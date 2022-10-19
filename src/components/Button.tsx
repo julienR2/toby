@@ -1,13 +1,8 @@
 import * as React from 'react'
-import {
-  Pressable,
-  PressableProps,
-  StyleSheet,
-  Text,
-  ViewProps,
-} from 'react-native'
+import { Pressable, PressableProps, StyleSheet, ViewProps } from 'react-native'
 
 import colors from '../theme/colors'
+import Text from './Text'
 
 type ButtonProps = {
   style: ViewProps['style']
@@ -22,7 +17,9 @@ const Button = ({ style, children, ...props }: ButtonProps) => (
     ]}
     {...props}>
     {typeof children === 'string' ? (
-      <Text style={styles.text}>{children}</Text>
+      <Text type="label" color="white">
+        {children}
+      </Text>
     ) : (
       children
     )}

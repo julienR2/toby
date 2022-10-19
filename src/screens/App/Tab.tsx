@@ -1,6 +1,7 @@
 import React from 'react'
-import { SectionList, StyleSheet, Text, View } from 'react-native'
+import { SectionList, StyleSheet, View } from 'react-native'
 
+import Text from '../../components/Text'
 import { Card } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import Bookmark from './Bookmark'
@@ -33,7 +34,9 @@ const Tab = ({ teamId }: TabProps) => {
   const renderSectionHeader = React.useCallback(
     (header: { section: { title: string } }) => (
       <View style={styles.headerWrapper}>
-        <Text style={styles.header}>{header.section.title}</Text>
+        <Text type="title" color="primary" style={styles.header}>
+          {header.section.title}
+        </Text>
       </View>
     ),
     [],
@@ -45,7 +48,6 @@ const Tab = ({ teamId }: TabProps) => {
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       renderSectionHeader={renderSectionHeader}
-      ListEmptyComponent={<Text>Emoty</Text>}
       onRefresh={fetchBookmarks}
       refreshing={loading}
       stickySectionHeadersEnabled
@@ -67,9 +69,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   header: {
-    color: colors.primary,
-    fontSize: 20,
-    fontWeight: '600',
     marginTop: 16,
   },
 })
