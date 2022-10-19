@@ -20,7 +20,7 @@ const Tab = ({ teamId }: TabProps) => {
         title: list.title,
         data: list.cards.length ? list.cards : [null],
       })),
-    [],
+    [lists],
   )
 
   const keyExtractor = React.useCallback((card: Card | null) => card?.id, [])

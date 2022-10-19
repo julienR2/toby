@@ -6,7 +6,8 @@
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "web": "expo start --web",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
@@ -38,6 +39,7 @@
     "@typescript-eslint/parser": "^5.40.1",
     "eslint": "^8.25.0",
     "eslint-config-universe": "^11.1.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1"
   },
   "private": true

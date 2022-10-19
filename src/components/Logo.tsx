@@ -6,13 +6,7 @@ type LogoProps = {
 } & Omit<SvgProps, 'width' | 'height'>
 
 const Logo = ({ size = 60, ...props }: LogoProps) => (
-  <Svg
-    width={size}
-    height={size}
-    viewBox="0 0 60 60"
-    fill="none"
-    // xmlns='http://www.w3.org/2000/svg'
-    {...props}>
+  <Svg width={size} height={size} viewBox="0 0 60 60" fill="none" {...props}>
     <Path
       fillRule="evenodd"
       clipRule="evenodd"

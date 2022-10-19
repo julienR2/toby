@@ -24,7 +24,7 @@ export const useFetchBookmarks = () => {
     } catch (error) {}
 
     setLoading(false)
-  }, [])
+  }, [token, setLists, setTeams])
 
   return { fetchBookmarks, loading, lists, teams }
 }

@@ -35,7 +35,7 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
     }
 
     setLoading(false)
-  }, [email, password, navigation])
+  }, [email, password, navigation, setToken])
 
   const onEmailChange = React.useCallback(
     (text: string) => {
