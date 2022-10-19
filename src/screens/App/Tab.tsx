@@ -3,9 +3,8 @@ import { SectionList, StyleSheet, Text, View } from 'react-native'
 
 import { Card } from '../../hooks/useStore'
 import colors from '../../theme/colors'
-
-import { useFetchBookmarks, useTeamLists } from './hooks'
 import Bookmark from './Bookmark'
+import { useFetchBookmarks, useTeamLists } from './hooks'
 
 type TabProps = {
   teamId: string
@@ -21,7 +20,7 @@ const Tab = ({ teamId }: TabProps) => {
         title: list.title,
         data: list.cards.length ? list.cards : [null],
       })),
-    [lists],
+    [],
   )
 
   const keyExtractor = React.useCallback((card: Card | null) => card?.id, [])

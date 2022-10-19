@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, Linking, Pressable, StyleSheet, Text, View } from 'react-native'
+
 import { Card } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 
@@ -31,12 +32,11 @@ const Bookmark = ({ item }: BookmarkProps) => {
     <View style={styles.wrapper}>
       <Pressable
         onPress={onBookmarkPress}
-        style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}
-      >
+        style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>
         <View style={styles.header}>
           {item.favIconUrl && !faviconError && (
             <Image
-              resizeMode='contain'
+              resizeMode="contain"
               source={{ uri: item.favIconUrl }}
               style={styles.favicon}
               onError={onFaviconError}

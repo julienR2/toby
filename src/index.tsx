@@ -1,15 +1,14 @@
-import React from 'react'
-import { StatusBar } from 'expo-status-bar'
-import * as SplashScreen from 'expo-splash-screen'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
+import React from 'react'
 
 import { RootStackParamList } from '../types/navigation'
-
-import Signin from './screens/Signin'
-import App from './screens/App'
-import { useStoreHydrated } from './hooks/useStoreHydrated'
 import { useStore, useStoreItem } from './hooks/useStore'
+import { useStoreHydrated } from './hooks/useStoreHydrated'
+import App from './screens/App'
+import Signin from './screens/Signin'
 import colors from './theme/colors'
 
 SplashScreen.preventAutoHideAsync()
@@ -30,13 +29,12 @@ export default function Root() {
 
   return (
     <NavigationContainer>
-      <StatusBar style='light' backgroundColor={colors.secondary} />
+      <StatusBar style="light" backgroundColor={colors.secondary} />
       <Stack.Navigator
         initialRouteName={token ? 'App' : 'Signin'}
-        screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
-      >
-        <Stack.Screen name='App' component={App} />
-        <Stack.Screen name='Signin' component={Signin} />
+        screenOptions={{ headerShown: false, animation: 'slide_from_right' }}>
+        <Stack.Screen name="App" component={App} />
+        <Stack.Screen name="Signin" component={Signin} />
       </Stack.Navigator>
     </NavigationContainer>
   )

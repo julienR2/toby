@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import {
   StyleSheet,
   View,
   ActivityIndicator,
   ActivityIndicatorProps,
 } from 'react-native'
+
 import colors from '../theme/colors'
 
 type SpinnerProps = {
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Spinner
+export default React.memo(Spinner)

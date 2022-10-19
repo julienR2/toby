@@ -5,7 +5,8 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.10",
@@ -32,7 +33,12 @@
     "@babel/core": "^7.12.9",
     "@types/lodash": "^4.14.186",
     "@types/react": "~18.0.0",
-    "@types/react-native": "~0.69.1"
+    "@types/react-native": "~0.69.1",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0",
+    "eslint-config-universe": "^11.1.0",
+    "prettier": "^2.7.1"
   },
   "private": true
 }

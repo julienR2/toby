@@ -4,10 +4,9 @@ import {
   PressableProps,
   StyleSheet,
   Text,
-  View,
   ViewProps,
-  ViewStyle,
 } from 'react-native'
+
 import colors from '../theme/colors'
 
 type ButtonProps = {
@@ -21,8 +20,7 @@ const Button = ({ style, children, ...props }: ButtonProps) => (
       style,
       pressed && { opacity: 0.8 },
     ]}
-    {...props}
-  >
+    {...props}>
     {typeof children === 'string' ? (
       <Text style={styles.text}>{children}</Text>
     ) : (
@@ -47,4 +45,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Button
+export default React.memo(Button)

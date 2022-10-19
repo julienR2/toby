@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+
 import { RootStackScreenProps } from '../../types/navigation'
 import Button from '../components/Button'
-
 import Input from '../components/Input'
 import Logo from '../components/Logo'
 import Spinner from '../components/Spinner'
@@ -70,13 +70,13 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
           </View>
         )}
         <Input
-          label='Email'
+          label="Email"
           style={styles.input}
           onChangeText={onEmailChange}
           value={email}
         />
         <Input
-          label='Password'
+          label="Password"
           style={styles.input}
           onChangeText={onPasswordChange}
           value={password}

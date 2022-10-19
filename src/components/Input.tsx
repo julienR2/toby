@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   Text,
   TextInput,
@@ -75,13 +75,12 @@ const Input = ({
           {
             transform: [{ translateY: panY.current }],
           },
-        ]}
-      >
+        ]}>
         <Text style={styles.label}>{label}</Text>
       </Animated.View>
       <View style={styles.inputWrapper}>
         <TextInput
-          underlineColorAndroid='transparent'
+          underlineColorAndroid="transparent"
           style={styles.input}
           multiline={false}
           secureTextEntry={secureTextEntry && !showPassword}
@@ -135,4 +134,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Input
+export default React.memo(Input)

@@ -1,22 +1,20 @@
+import { partition, flatten } from 'lodash'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   NavigationState,
-  SceneMap,
   SceneRendererProps,
   TabBar,
   TabView,
 } from 'react-native-tab-view'
-import { partition, flatten } from 'lodash'
 
 import colors from '../../theme/colors'
-
-import { useFetchBookmarks } from './hooks'
 import Tab from './Tab'
+import { useFetchBookmarks } from './hooks'
 
 const App = () => {
-  const { loading, teams } = useFetchBookmarks()
+  const { teams } = useFetchBookmarks()
   const layout = useWindowDimensions()
 
   const [index, setIndex] = React.useState(0)

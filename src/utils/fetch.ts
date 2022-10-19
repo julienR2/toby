@@ -1,6 +1,6 @@
 import { merge } from 'lodash'
 
-const queryString = (params: {}) => {
+const queryString = (params: object) => {
   const s = Object.keys(params)
     .map((key) => [key, params[key]].map(encodeURIComponent).join('='))
     .join('&')
