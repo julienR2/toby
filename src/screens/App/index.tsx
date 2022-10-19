@@ -8,6 +8,7 @@ import {
   TabBar,
   TabView,
 } from 'react-native-tab-view'
+import { partition, flatten } from 'lodash'
 
 import colors from '../../theme/colors'
 
@@ -21,7 +22,11 @@ const App = () => {
   const [index, setIndex] = React.useState(0)
 
   const routes = React.useMemo(
-    () => teams.map((team) => ({ key: team.id, title: team.name })),
+    () =>
+      flatten(partition(teams, { isDefault: true })).map((team) => ({
+        key: team.id,
+        title: team.name,
+      })),
     [teams],
   )
 
@@ -84,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: colors.white,
     alignItems: 'center',
-    elevation: 10,
+    elevation: 4,
     zIndex: 9,
   },
   tabBar: {

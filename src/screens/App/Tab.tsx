@@ -1,34 +1,41 @@
 import React from 'react'
-import { SectionList, Text, View } from 'react-native'
+import { SectionList, StyleSheet, Text, View } from 'react-native'
+
 import { Card } from '../../hooks/useStore'
-import { useTeamLists } from './hooks'
+import colors from '../../theme/colors'
+
+import { useFetchBookmarks, useTeamLists } from './hooks'
+import Bookmark from './Bookmark'
 
 type TabProps = {
   teamId: string
 }
 
 const Tab = ({ teamId }: TabProps) => {
+  const { loading, fetchBookmarks } = useFetchBookmarks()
   const { lists } = useTeamLists({ teamId })
 
   const data = React.useMemo(
     () =>
       lists.map((list) => ({
         title: list.title,
-        data: list.cards,
+        data: list.cards.length ? list.cards : [null],
       })),
     [lists],
   )
 
-  const keyExtractor = React.useCallback((card: Card) => card.id, [])
+  const keyExtractor = React.useCallback((card: Card | null) => card?.id, [])
 
   const renderItem = React.useCallback(
-    ({ item }: { item: Card }) => <Text>{item.title}</Text>,
+    ({ item }: { item: Card | null }) => <Bookmark item={item} />,
     [],
   )
 
   const renderSectionHeader = React.useCallback(
     (header: { section: { title: string } }) => (
-      <Text>{header.section.title}</Text>
+      <View style={styles.headerWrapper}>
+        <Text style={styles.header}>{header.section.title}</Text>
+      </View>
     ),
     [],
   )
@@ -39,9 +46,33 @@ const Tab = ({ teamId }: TabProps) => {
       keyExtractor={keyExtractor}
       renderItem={renderItem}
       renderSectionHeader={renderSectionHeader}
+      ListEmptyComponent={<Text>Emoty</Text>}
+      onRefresh={fetchBookmarks}
+      refreshing={loading}
       stickySectionHeadersEnabled
+      style={styles.section}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  section: {
+    backgroundColor: colors.white,
+    paddingHorizontal: 12,
+  },
+  headerWrapper: {
+    backgroundColor: colors.white,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderColor: colors.primaryTransparentLight,
+    marginBottom: 8,
+  },
+  header: {
+    color: colors.primary,
+    fontSize: 20,
+    fontWeight: '600',
+    marginTop: 16,
+  },
+})
 
 export default React.memo(Tab)
