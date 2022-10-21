@@ -8,13 +8,14 @@ type ButtonProps = {
   style: ViewProps['style']
 } & Omit<PressableProps, 'style'>
 
-const Button = ({ style, children, ...props }: ButtonProps) => (
+const Button = ({ style, children, disabled, ...props }: ButtonProps) => (
   <Pressable
     style={({ pressed }) => [
       styles.pressable,
       style,
-      pressed && { opacity: 0.8 },
+      (pressed || disabled) && { opacity: 0.8 },
     ]}
+    disabled={disabled}
     {...props}>
     {typeof children === 'string' ? (
       <Text type="label" color="white">

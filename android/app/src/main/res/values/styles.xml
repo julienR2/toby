@@ -15,4 +15,11 @@
     <item name="android:windowFullscreen">true</item>
     <!-- Customize your splash screen theme here -->
   </style>
+  <style name="Extension" parent="AppTheme">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:backgroundDimEnabled">true</item>
+    <item name="android:windowAnimationStyle">@null</item>
+  </style>
 </resources>

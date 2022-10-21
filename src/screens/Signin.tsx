@@ -11,7 +11,11 @@ import { useStoreControls, useStoreItem } from '../hooks/useStore'
 import colors from '../theme/colors'
 import { post } from '../utils/fetch'
 
-const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
+type SigninProps = {
+  navigation?: RootStackScreenProps<'Signin'>['navigation']
+}
+
+const Signin = ({ navigation }: SigninProps) => {
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [error, setError] = React.useState(false)
@@ -31,7 +35,7 @@ const Signin = ({ navigation }: RootStackScreenProps<'Signin'>) => {
 
       setToken(data.token)
 
-      navigation.reset({ index: 0, routes: [{ name: 'App' }] })
+      navigation?.reset({ index: 0, routes: [{ name: 'App' }] })
     } catch (error) {
       setError(true)
     }

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import WebView from 'react-native-webview'
 
 import colors from '../theme/colors'
+import IconButton from './IconButton'
 import Text from './Text'
 
 const SOURCE = {
@@ -43,16 +44,12 @@ const Coffee = React.forwardRef<CoffeeHandle, CoffeeProps>((_, ref) => {
       style={[styles.wrapper, !visible && styles.hidden]}
       pointerEvents={!visible ? 'none' : undefined}>
       <View style={styles.closeWrapper}>
-        <Pressable
-          style={({ pressed }) => [
-            styles.close,
-            pressed && styles.closePressed,
-          ]}
-          onPress={hide}>
-          <Text color="secondary" weight="medium">
-            Close
-          </Text>
-        </Pressable>
+        <IconButton
+          icon="Close"
+          style={styles.close}
+          size={16}
+          onPress={hide}
+        />
       </View>
       <View style={styles.modal}>
         <View style={styles.message}>
@@ -121,12 +118,8 @@ const styles = StyleSheet.create({
   },
   close: {
     paddingHorizontal: 8,
-    paddingVertical: 4,
     borderRadius: 12,
     backgroundColor: colors.white,
-  },
-  closePressed: {
-    opacity: 0.8,
   },
 })
 

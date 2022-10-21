@@ -1,4 +1,3 @@
-import { partition, flatten } from 'lodash'
 import React from 'react'
 import { Alert, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -13,10 +12,10 @@ import { RootStackScreenProps } from '../../../types/navigation'
 import Coffee, { CoffeeHandle } from '../../components/Coffee'
 import IconButton from '../../components/IconButton'
 import Spinner from '../../components/Spinner'
+import { useFetchBookmarks } from '../../hooks/useBookmarks'
 import { useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import Tab from './Tab'
-import { useFetchBookmarks } from './hooks'
 
 const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   const coffeeRef = React.useRef<CoffeeHandle | null>(null)
@@ -45,7 +44,7 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
 
   const routes = React.useMemo(
     () =>
-      flatten(partition(teams, { isDefault: true })).map((team) => ({
+      teams.map((team) => ({
         key: team.id,
         title: team.name,
       })),

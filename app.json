@@ -3,6 +3,7 @@
     "name": "toby",
     "slug": "toby",
     "version": "1.0.0",
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": ["**/*"],
+    "package": "com.toby"
   }
 }

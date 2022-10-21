@@ -1,7 +1,8 @@
+import { flatten, partition } from 'lodash'
 import React from 'react'
 
-import { useStoreItem } from '../../hooks/useStore'
-import { get } from '../../utils/fetch'
+import { get } from '../utils/fetch'
+import { useStoreItem } from './useStore'
 
 export const useFetchBookmarks = () => {
   const [loading, setLoading] = React.useState(false)
@@ -26,7 +27,12 @@ export const useFetchBookmarks = () => {
     setLoading(false)
   }, [token, setLists, setTeams])
 
-  return { fetchBookmarks, loading, lists, teams }
+  const orderedTeams = React.useMemo(
+    () => flatten(partition(teams, { isDefault: true })),
+    [teams],
+  )
+
+  return { fetchBookmarks, loading, lists, teams: orderedTeams }
 }
 
 type TeamListsParams = {

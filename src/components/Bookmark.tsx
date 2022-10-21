@@ -1,12 +1,13 @@
 import React from 'react'
 import { Image, Linking, Pressable, StyleSheet, View } from 'react-native'
+import { SvgUri } from 'react-native-svg'
 
-import Text from '../../components/Text'
-import { Card } from '../../hooks/useStore'
-import colors from '../../theme/colors'
+import { Card } from '../hooks/useStore'
+import colors from '../theme/colors'
+import Text from './Text'
 
 type BookmarkProps = {
-  item: Card | null
+  item: Partial<Card> | null
 }
 
 const Bookmark = ({ item }: BookmarkProps) => {
@@ -25,13 +26,32 @@ const Bookmark = ({ item }: BookmarkProps) => {
     } catch (error) {}
   }, [item?.url])
 
-  if (!item) {
+  const favicon = React.useMemo(() => {
+    if (!item?.favIconUrl || faviconError) return null
+
+    const isSvg = item.favIconUrl.endsWith('.svg')
+
+    if (isSvg) {
+      return (
+        <SvgUri
+          width="20"
+          height="20"
+          uri={item.favIconUrl}
+          onError={onFaviconError}
+          style={styles.favicon}
+        />
+      )
+    }
+
     return (
-      <Text style={styles.empty} color="secondaryTransparent">
-        This Collection is empty.
-      </Text>
+      <Image
+        resizeMode="contain"
+        source={{ uri: item.favIconUrl }}
+        style={styles.favicon}
+        onError={onFaviconError}
+      />
     )
-  }
+  }, [item?.favIconUrl, faviconError, onFaviconError])
 
   return (
     <View style={styles.wrapper}>
@@ -39,15 +59,12 @@ const Bookmark = ({ item }: BookmarkProps) => {
         onPress={onBookmarkPress}
         style={({ pressed }) => ({ opacity: pressed ? 0.8 : 1 })}>
         <View style={styles.header}>
-          {item.favIconUrl && !faviconError && (
-            <Image
-              resizeMode="contain"
-              source={{ uri: item.favIconUrl }}
-              style={styles.favicon}
-              onError={onFaviconError}
-            />
-          )}
-          <Text type="label" color="secondary" numberOfLines={2}>
+          {favicon}
+          <Text
+            type="label"
+            color="secondary"
+            numberOfLines={2}
+            style={styles.title}>
             {title}
           </Text>
         </View>
@@ -76,6 +93,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
   },
+  title: {
+    flex: 1,
+  },
   favicon: {
     marginTop: 2,
     height: 20,
@@ -87,10 +107,6 @@ const styles = StyleSheet.create({
     borderColor: colors.secondaryTransparentLight,
     paddingHorizontal: 12,
     paddingVertical: 8,
-  },
-  empty: {
-    marginHorizontal: 4,
-    marginVertical: 8,
   },
 })
 

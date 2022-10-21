@@ -1,11 +1,11 @@
 import React from 'react'
 import { SectionList, StyleSheet, View } from 'react-native'
 
+import Bookmark from '../../components/Bookmark'
 import Text from '../../components/Text'
+import { useFetchBookmarks, useTeamLists } from '../../hooks/useBookmarks'
 import { Card } from '../../hooks/useStore'
 import colors from '../../theme/colors'
-import Bookmark from './Bookmark'
-import { useFetchBookmarks, useTeamLists } from './hooks'
 
 type TabProps = {
   teamId: string
@@ -27,7 +27,14 @@ const Tab = ({ teamId }: TabProps) => {
   const keyExtractor = React.useCallback((card: Card | null) => card?.id, [])
 
   const renderItem = React.useCallback(
-    ({ item }: { item: Card | null }) => <Bookmark item={item} />,
+    ({ item }: { item: Card | null }) =>
+      !item ? (
+        <Text style={styles.empty} color="secondaryTransparent">
+          This Collection is empty.
+        </Text>
+      ) : (
+        <Bookmark item={item} />
+      ),
     [],
   )
 
@@ -70,6 +77,10 @@ const styles = StyleSheet.create({
   },
   header: {
     marginTop: 16,
+  },
+  empty: {
+    marginHorizontal: 4,
+    marginVertical: 8,
   },
 })
 
