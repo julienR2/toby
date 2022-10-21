@@ -5,7 +5,6 @@ import {
   ScrollView,
   StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native'
 
 import { useFetchBookmarks, useTeamLists } from '../hooks/useBookmarks'

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Pressable, PressableProps, StyleSheet, ViewProps } from 'react-native'
 
-import colors from '../theme/colors'
 import * as Icons from './Icons'
 
 type ButtonProps = {
