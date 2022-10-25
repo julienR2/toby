@@ -101,6 +101,7 @@ apply from: new File(reactNativeRoot, "react.gradle")
  * the correct one based on the CPU architecture of their device.
  */
 def enableSeparateBuildPerCPUArchitecture = false
+def password = getPassword("julien", "android_keystore")
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
@@ -238,6 +239,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file(UPLOAD_STORE_FILE)
+            storePassword password
+            keyAlias UPLOAD_KEY_ALIAS
+            keyPassword password
+        }
     }
     buildTypes {
         debug {
@@ -373,4 +380,17 @@ def isNewArchitectureEnabled() {
     // - Invoke gradle with `-newArchEnabled=true`
     // - Set an environment variable `ORG_GRADLE_PROJECT_newArchEnabled=true`
     return project.hasProperty("newArchEnabled") && project.newArchEnabled == "true"
+}
+
+def getPassword(String currentUser, String keyChain) {
+    def stdout = new ByteArrayOutputStream()
+    def stderr = new ByteArrayOutputStream()
+    exec {
+       commandLine 'security', '-q', 'find-generic-password', '-a', currentUser, '-s', keyChain, '-w'
+       standardOutput = stdout
+       errorOutput = stderr
+       ignoreExitValue true
+    }
+    //noinspection GroovyAssignabilityCheck
+    stdout.toString().trim()
 }

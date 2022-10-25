@@ -30,7 +30,7 @@ const Input = ({
   ...props
 }: InputProps) => {
   const [showPassword, setShowPassword] = React.useState(false)
-  const length = (props.value || props.defaultValue)?.length
+  const length = (props.value || props.defaultValue)?.length ?? 0
 
   const panY = React.useRef(new Animated.Value(length ? 0 : MAX_PAN_Y))
 

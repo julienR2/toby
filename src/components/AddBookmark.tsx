@@ -27,7 +27,7 @@ const AddBookmark = ({ link }: AddBookmarkProps) => {
   const { fetchBookmarks, teams } = useFetchBookmarks()
   const [token] = useStoreItem('token')
 
-  const [data, setData] = React.useState<Partial<Card>>(null)
+  const [data, setData] = React.useState<Partial<Card> | null>(null)
   const [loading, setLoading] = React.useState(false)
   const [selectedTeam, setSelectedTeam] = React.useState(teams?.[0].id)
   const { lists } = useTeamLists({ teamId: selectedTeam })
@@ -44,10 +44,11 @@ const AddBookmark = ({ link }: AddBookmarkProps) => {
     async function getBookmarkData() {
       setLoading(true)
 
-      try {
-        const previewData = await getPreview(link)
+      const previewData = await getPreview(link)
+
+      if (previewData) {
         setData(previewData)
-      } catch (error) {}
+      }
 
       setLoading(false)
     }
@@ -57,7 +58,7 @@ const AddBookmark = ({ link }: AddBookmarkProps) => {
 
   const onTeamSelected = React.useCallback(
     (teamId: string) => () => {
-      scrollViewRef.current.scrollTo({ x: 0, animated: false })
+      scrollViewRef.current?.scrollTo({ x: 0, animated: false })
       setSelectedTeam(teamId)
     },
     [],
@@ -72,7 +73,7 @@ const AddBookmark = ({ link }: AddBookmarkProps) => {
 
     try {
       await post('https://api2.gettoby.com/v2/cards', {
-        headers: { 'x-auth-token': token },
+        ...(token ? { headers: { 'x-auth-token': token } } : {}),
         params: { ...data, listId: selectedList },
       })
     } catch (error) {}

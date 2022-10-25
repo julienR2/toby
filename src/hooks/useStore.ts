@@ -19,8 +19,8 @@ export type Card = {
 
 type State = {
   token?: string
-  lists?: { id: string; title: string; teamId: string; cards: Card[] }[]
-  teams?: { id: string; name: string; isDefault: boolean }[]
+  lists: { id: string; title: string; teamId: string; cards: Card[] }[]
+  teams: { id: string; name: string; isDefault: boolean }[]
   showDonation?: boolean
 }
 
@@ -31,7 +31,7 @@ type Controls = {
 }
 
 type StoreState = State & {
-  controls?: Controls
+  controls: Controls
 }
 
 const DEFAULT_STATE = {
@@ -41,8 +41,8 @@ const DEFAULT_STATE = {
   showDonation: true,
 }
 
-export const useStore = create(
-  persist<StoreState>(
+export const useStore = create<StoreState>()(
+  persist(
     (set, get) => ({
       ...DEFAULT_STATE,
       controls: {

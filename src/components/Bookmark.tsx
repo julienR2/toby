@@ -7,7 +7,7 @@ import colors from '../theme/colors'
 import Text from './Text'
 
 type BookmarkProps = {
-  item: Partial<Card> | null
+  item?: Partial<Card> | null
 }
 
 const Bookmark = ({ item }: BookmarkProps) => {

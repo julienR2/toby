@@ -24,7 +24,10 @@ const Tab = ({ teamId }: TabProps) => {
     [lists],
   )
 
-  const keyExtractor = React.useCallback((card: Card | null) => card?.id, [])
+  const keyExtractor = React.useCallback(
+    (card: Card | null) => card?.id || '',
+    [],
+  )
 
   const renderItem = React.useCallback(
     ({ item }: { item: Card | null }) =>

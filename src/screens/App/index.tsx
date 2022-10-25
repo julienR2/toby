@@ -32,7 +32,7 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
 
     const timeoutId = setTimeout(() => {
       setShowDonation(false)
-      coffeeRef.current.show()
+      coffeeRef.current?.show()
     }, 5000)
 
     return () => {
@@ -52,7 +52,7 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   )
 
   const renderScene = React.useCallback(
-    ({ route }) => <Tab teamId={route.key} />,
+    ({ route }: { route: typeof routes[0] }) => <Tab teamId={route.key} />,
     [],
   )
 
@@ -82,7 +82,7 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   }, [navigation])
 
   const onCoffee = React.useCallback(() => {
-    coffeeRef.current.show()
+    coffeeRef.current?.show()
   }, [])
 
   const renderTabBar = React.useCallback(

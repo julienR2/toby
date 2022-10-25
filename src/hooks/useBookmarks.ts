@@ -17,7 +17,7 @@ export const useFetchBookmarks = () => {
     try {
       const data: { lists: typeof lists; teams: typeof teams } = await get(
         'https://api2.gettoby.com/v2/states',
-        { headers: { 'x-auth-token': token } },
+        token ? { headers: { 'x-auth-token': token } } : {},
       )
 
       setLists(data.lists)
@@ -43,7 +43,7 @@ export const useTeamLists = ({ teamId }: TeamListsParams) => {
   const [lists] = useStoreItem('lists')
 
   const teamLists = React.useMemo(
-    () => lists.filter((list) => list.teamId === teamId),
+    () => lists?.filter((list) => list.teamId === teamId) || [],
     [lists, teamId],
   )
 

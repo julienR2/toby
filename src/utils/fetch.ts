@@ -2,12 +2,17 @@ import { merge } from 'lodash'
 
 const queryString = (params: object) => {
   const s = Object.keys(params)
-    .map((key) => [key, params[key]].map(encodeURIComponent).join('='))
+    .map((key) =>
+      [key, params[key as keyof typeof params]]
+        .map(encodeURIComponent)
+        .join('='),
+    )
     .join('&')
   return s ? `?${s}` : ''
 }
 
 type FetchOptions = Omit<RequestInit, 'body'> & {
+  // headers?: { [key: string]: string | undefined }
   params?: { [key: string]: number | string | undefined }
 }
 

@@ -33,7 +33,7 @@ const weights = StyleSheet.create(
   Object.keys(fontFamilies).reduce<Weights>(
     (acc, key) => ({
       ...acc,
-      [key]: { fontFamily: fontFamilies[key] },
+      [key]: { fontFamily: fontFamilies[key as keyof typeof fontFamilies] },
     }),
     {} as Weights,
   ),
@@ -45,7 +45,7 @@ const colors = StyleSheet.create(
   Object.keys(colorsList).reduce<Colors>(
     (acc, key) => ({
       ...acc,
-      [key]: { color: colorsList[key] },
+      [key]: { color: colorsList[key as keyof typeof colorsList] },
     }),
     {} as Colors,
   ),
@@ -65,7 +65,12 @@ const Text = ({
   ...props
 }: TextProps) => (
   <RNText
-    style={[types[type], weights[weight], colors[color], style]}
+    style={[
+      types[type],
+      weights[weight as keyof typeof weights],
+      colors[color],
+      style,
+    ]}
     {...props}
   />
 )

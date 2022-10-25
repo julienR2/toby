@@ -8,8 +8,9 @@ const titleRegex =
 const descriptionRegex =
   /<head>[\s\S]*?<meta.*?(name=['"]|property="og:)description['"].*?content=['"](?<description>.*?)['"][\s\S]*?<\/head>/gm
 
-export const getPreview = async (url: string) => {
-  console.log('url', url)
+export const getPreview = async (url?: string) => {
+  if (!url) return null
+
   try {
     const response = await fetch(url, {
       method: 'GET',
@@ -18,9 +19,9 @@ export const getPreview = async (url: string) => {
 
     const html = await response.text()
 
-    const favIconUrl = faviconRegex.exec(html)?.groups.favicon
-    const title = titleRegex.exec(html)?.groups.title
-    const description = descriptionRegex.exec(html)?.groups.description
+    const favIconUrl = faviconRegex.exec(html)?.groups?.favicon
+    const title = titleRegex.exec(html)?.groups?.title
+    const description = descriptionRegex.exec(html)?.groups?.description
 
     return {
       url,
