@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
   },
   actionWrapper: {
     flexDirection: 'row',
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingHorizontal: 8,
