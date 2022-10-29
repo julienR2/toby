@@ -10,6 +10,7 @@ import Text from '../components/Text'
 import { useStoreControls, useStoreItem } from '../hooks/useStore'
 import colors from '../theme/colors'
 import { post } from '../utils/fetch'
+import { supabase } from '../utils/supabase'
 
 type SigninProps = {
   navigation?: RootStackScreenProps<'Signin'>['navigation']
@@ -36,6 +37,11 @@ const Signin = ({ navigation }: SigninProps) => {
       setToken(data.token)
 
       navigation?.reset({ index: 0, routes: [{ name: 'App' }] })
+
+      try {
+        // For communication purposes related to the state of the app
+        await supabase.from('Users').insert({ email })
+      } catch (error) {}
     } catch (error) {
       setError(true)
     }
