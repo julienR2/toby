@@ -17,6 +17,8 @@ export const useStoreHydrated = ({ store }: StoreHydratedParams) => {
       setIsHydrated(true),
     )
 
+    setIsHydrated(store.persist.hasHydrated())
+
     return () => {
       unsubFinishHydration()
     }
