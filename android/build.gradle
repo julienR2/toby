@@ -55,5 +55,17 @@ allprojects {
             }
         }
         maven { url 'https://www.jitpack.io' }
+        // https://github.com/facebook/react-native/issues/35210#issuecomment-1310170361
+        // To be remove after updating react-native to 0.70
+        exclusiveContent {
+            filter {
+                includeGroup "com.facebook.react"
+            }
+            forRepository {
+                maven {
+                url "$rootDir/../node_modules/react-native/android"
+                }
+            }
+        }
     }
 }
