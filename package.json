@@ -1,6 +1,6 @@
 {
   "name": "toby",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "index.js",
   "scripts": {
     "start": "expo start --dev-client",
