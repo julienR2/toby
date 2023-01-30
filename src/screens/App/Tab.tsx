@@ -1,10 +1,11 @@
+import Fuse from 'fuse.js'
 import React from 'react'
-import { SectionList, StyleSheet, View } from 'react-native'
+import { ScrollView, SectionList, StyleSheet, View } from 'react-native'
 
 import Bookmark from '../../components/Bookmark'
 import Text from '../../components/Text'
 import { useFetchBookmarks, useTeamLists } from '../../hooks/useBookmarks'
-import { Card } from '../../hooks/useStore'
+import { Card, useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 
 type TabProps = {
@@ -14,6 +15,7 @@ type TabProps = {
 const Tab = ({ teamId }: TabProps) => {
   const { loading, fetchBookmarks } = useFetchBookmarks()
   const { lists } = useTeamLists({ teamId })
+  const [query] = useStoreItem('query')
 
   const data = React.useMemo(
     () =>
@@ -22,6 +24,29 @@ const Tab = ({ teamId }: TabProps) => {
         data: list.cards.length ? list.cards : [null],
       })),
     [lists],
+  )
+
+  const fuse = React.useMemo(
+    () =>
+      new Fuse(
+        lists.reduce((acc, { cards }) => [...acc, ...cards], [] as Card[]),
+        {
+          threshold: 0.2,
+          keys: [
+            'title',
+            'description',
+            'customTitle',
+            'customDescription',
+            'url',
+          ],
+        },
+      ),
+    [lists],
+  )
+
+  const searchResults = React.useMemo(
+    () => (query ? fuse.search(query) : []),
+    [query, fuse],
   )
 
   const keyExtractor = React.useCallback(
@@ -52,6 +77,16 @@ const Tab = ({ teamId }: TabProps) => {
     [],
   )
 
+  if (query) {
+    return (
+      <ScrollView style={[styles.section, styles.searchResults]}>
+        {searchResults.map(({ item }) => (
+          <Bookmark item={item} />
+        ))}
+      </ScrollView>
+    )
+  }
+
   return (
     <SectionList
       sections={data}
@@ -67,6 +102,9 @@ const Tab = ({ teamId }: TabProps) => {
 }
 
 const styles = StyleSheet.create({
+  searchResults: {
+    paddingTop: 12,
+  },
   section: {
     backgroundColor: colors.white,
     paddingHorizontal: 12,

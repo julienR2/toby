@@ -16,6 +16,7 @@ import { useFetchBookmarks } from '../../hooks/useBookmarks'
 import { useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import Tab from './Tab'
+import Toolbar from './Toolbar'
 
 const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   const coffeeRef = React.useRef<CoffeeHandle | null>(null)
@@ -61,6 +62,8 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
     [routes, index],
   )
 
+  const currentTeamId = navigationState.routes[navigationState.index].key
+
   const onLogout = React.useCallback(() => {
     Alert.alert(
       'Do you really want to log out ?',
@@ -91,31 +94,36 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
         navigationState: NavigationState<any>
       },
     ) => (
-      <View style={styles.tabBarWrapper}>
-        <View style={{ flex: 1 }}>
-          <TabBar
-            {...props}
-            indicatorStyle={styles.indicator}
-            style={styles.tabBar}
-            activeColor={colors.black}
-            inactiveColor={colors.secondaryTransparent}
-            labelStyle={styles.label}
-          />
+      <View style={styles.toolbarWrapper}>
+        <View style={styles.tabBarWrapper}>
+          <View style={{ flex: 1 }}>
+            <TabBar
+              {...props}
+              indicatorStyle={styles.indicator}
+              style={styles.tabBar}
+              activeColor={colors.black}
+              inactiveColor={colors.secondaryTransparent}
+              labelStyle={styles.label}
+            />
+          </View>
+          <View style={styles.actionWrapper}>
+            <IconButton
+              icon="Coffee"
+              size={18}
+              onPress={onCoffee}
+              style={styles.coffee}
+            />
+            <IconButton
+              icon="Logout"
+              size={16}
+              color={colors.blackLight}
+              onPress={onLogout}
+            />
+          </View>
         </View>
-        <View style={styles.actionWrapper}>
-          <IconButton
-            icon="Coffee"
-            size={18}
-            onPress={onCoffee}
-            style={styles.coffee}
-          />
-          <IconButton
-            icon="Logout"
-            size={16}
-            color={colors.blackLight}
-            onPress={onLogout}
-          />
-        </View>
+        <Toolbar
+          teamId={props.navigationState.routes[props.navigationState.index].key}
+        />
       </View>
     ),
     [onLogout, onCoffee],
@@ -157,9 +165,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 16,
   },
-  tabBarWrapper: {
-    flexDirection: 'row',
+  toolbarWrapper: {
+    flexDirection: 'column',
     backgroundColor: colors.white,
+  },
+  tabBarWrapper: {
+    backgroundColor: colors.white,
+    flexDirection: 'row',
     alignItems: 'center',
     elevation: 4,
     zIndex: 9,

@@ -22,6 +22,7 @@ type State = {
   lists: { id: string; title: string; teamId: string; cards: Card[] }[]
   teams: { id: string; name: string; isDefault: boolean }[]
   showDonation?: boolean
+  query?: string
 }
 
 type Controls = {
@@ -54,7 +55,7 @@ export const useStore = create<StoreState>()(
     {
       name: 'toby-store',
       getStorage: () => AsyncStorage,
-      partialize: ignoreList(['controls']),
+      partialize: ignoreList(['controls', 'query']),
     },
   ),
 )
