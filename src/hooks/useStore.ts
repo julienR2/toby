@@ -17,11 +17,37 @@ export type Card = {
   customDescription: string
 }
 
-type State = {
+export enum SortType {
+  Dnd = 'drag_n_drop',
+  Alphabetical = 'alphabetical',
+  Starred = 'starred_to_top',
+  DateCreated = 'date_created',
+}
+
+export type Config = {
+  sorts: {
+    [key: string]: {
+      isDesc: boolean
+      spaceType: SortType
+      type: SortType
+    }
+  }
+}
+
+export type State = {
   token?: string
-  lists: { id: string; title: string; teamId: string; cards: Card[] }[]
+  lists: {
+    id: string
+    title: string
+    teamId: string
+    createdAt: string
+    position: number
+    star: boolean | null
+    cards: Card[]
+  }[]
   teams: { id: string; name: string; isDefault: boolean }[]
   showDonation?: boolean
+  config?: Config
   query?: string
 }
 

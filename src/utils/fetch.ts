@@ -13,7 +13,7 @@ const queryString = (params: object) => {
 
 type FetchOptions = Omit<RequestInit, 'body'> & {
   // headers?: { [key: string]: string | undefined }
-  params?: { [key: string]: number | string | undefined }
+  params?: { [key: string]: number | string | undefined | object }
 }
 
 export const get = async (
@@ -46,6 +46,30 @@ export const post = async (
   const args = merge(
     {
       method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(params),
+    },
+    options,
+  )
+
+  const response = await fetch(url, args)
+
+  if (!response.ok) {
+    throw new Error()
+  }
+
+  const data = await response.json()
+
+  return data
+}
+
+export const put = async (
+  url: string,
+  { params = {}, ...options }: FetchOptions = {},
+) => {
+  const args = merge(
+    {
+      method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(params),
     },

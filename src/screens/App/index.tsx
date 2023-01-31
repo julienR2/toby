@@ -62,8 +62,6 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
     [routes, index],
   )
 
-  const currentTeamId = navigationState.routes[navigationState.index].key
-
   const onLogout = React.useCallback(() => {
     Alert.alert(
       'Do you really want to log out ?',
@@ -122,7 +120,9 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
           </View>
         </View>
         <Toolbar
-          teamId={props.navigationState.routes[props.navigationState.index].key}
+          teamId={
+            props.navigationState.routes[props.navigationState.index]?.key
+          }
         />
       </View>
     ),

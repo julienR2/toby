@@ -81,7 +81,7 @@ const Tab = ({ teamId }: TabProps) => {
     return (
       <ScrollView style={[styles.section, styles.searchResults]}>
         {searchResults.map(({ item }) => (
-          <Bookmark item={item} />
+          <Bookmark key={item.id} item={item} />
         ))}
       </ScrollView>
     )
