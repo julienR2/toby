@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import React from 'react'
 import { Alert, StyleSheet, useWindowDimensions, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -138,16 +139,18 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   }
 
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <TabView
-        navigationState={navigationState}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
-      />
-      <Coffee ref={coffeeRef} />
-    </SafeAreaView>
+    <BottomSheetModalProvider>
+      <SafeAreaView style={styles.wrapper}>
+        <TabView
+          navigationState={navigationState}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar}
+        />
+        <Coffee ref={coffeeRef} />
+      </SafeAreaView>
+    </BottomSheetModalProvider>
   )
 }
 
