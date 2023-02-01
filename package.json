@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start --dev-client",
-    "android": "expo run:android",
-    "android:release": "cd android && ./gradlew assembleRelease",
+    "dev": "expo run:android",
+    "release": "cd android && ./gradlew assembleRelease",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "typecheck": "tsc"
   },
