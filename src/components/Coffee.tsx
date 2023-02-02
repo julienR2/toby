@@ -8,7 +8,7 @@ import IconButton from './IconButton'
 import Text from './Text'
 
 const SOURCE = {
-  uri: 'https://www.buymeacoffee.com/widget/page/julienr2?description=Support%20me%20on%20Buy%20me%20a%20coffee!&color=%235F7FFF',
+  uri: 'https://www.buymeacoffee.com/julienr2',
 }
 
 type CoffeeProps = object
@@ -43,15 +43,15 @@ const Coffee = React.forwardRef<CoffeeHandle, CoffeeProps>((_, ref) => {
     <SafeAreaView
       style={[styles.wrapper, !visible && styles.hidden]}
       pointerEvents={!visible ? 'none' : undefined}>
-      <View style={styles.closeWrapper}>
-        <IconButton
-          icon="Close"
-          style={styles.close}
-          size={16}
-          onPress={hide}
-        />
-      </View>
       <View style={styles.modal}>
+        <View style={styles.closeWrapper}>
+          <IconButton
+            icon="Close"
+            style={styles.close}
+            size={16}
+            onPress={hide}
+          />
+        </View>
         <View style={styles.message}>
           <Text type="label" weight="regular" style={styles.text}>
             Hey 👋
@@ -60,14 +60,17 @@ const Coffee = React.forwardRef<CoffeeHandle, CoffeeProps>((_, ref) => {
             I'm Julien, I love creating little apps to make life easier. If you
             happened to like this one, you can buy me a coffee or a beer !
           </Text>
-          <Text type="label" weight="regular" style={styles.text}>
+          <Text type="label" weight="regular">
             Cheers 🍻
           </Text>
         </View>
       </View>
       <View style={[styles.modal, styles.webviewModal]}>
         <View style={styles.webviewWrapper}>
-          <WebView source={SOURCE} />
+          <WebView
+            source={SOURCE}
+            injectedJavaScript="document.querySelector('.custom-color-page > div').remove()"
+          />
         </View>
       </View>
     </SafeAreaView>
@@ -82,8 +85,7 @@ const styles = StyleSheet.create({
     right: 0,
     left: 0,
     backgroundColor: colors.blackTransparent,
-    paddingHorizontal: 24,
-    paddingVertical: 12,
+    padding: 12,
   },
   modal: {
     backgroundColor: colors.white,
@@ -104,20 +106,20 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   message: {
-    marginTop: 24,
-    marginBottom: 16,
-    paddingHorizontal: 24,
-    padding: 4,
+    paddingVertical: 16,
+    paddingHorizontal: 12,
   },
   text: {
     marginBottom: 8,
   },
   closeWrapper: {
+    position: 'absolute',
     alignItems: 'flex-end',
-    marginBottom: 8,
+    top: 0,
+    right: 0,
   },
   close: {
-    paddingHorizontal: 8,
+    padding: 8,
     borderRadius: 12,
     backgroundColor: colors.white,
   },
