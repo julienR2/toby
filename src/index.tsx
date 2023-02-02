@@ -1,3 +1,4 @@
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as SplashScreen from 'expo-splash-screen'
@@ -32,20 +33,22 @@ export default function Root() {
 
   return (
     <SafeAreaProvider>
-      <GestureHandlerRootView style={styles.gestureHandler}>
-        <NavigationContainer>
-          <StatusBar style="light" backgroundColor={colors.secondary} />
-          <Stack.Navigator
-            initialRouteName={token ? 'App' : 'Signin'}
-            screenOptions={{
-              headerShown: false,
-              animation: 'slide_from_right',
-            }}>
-            <Stack.Screen name="App" component={App} />
-            <Stack.Screen name="Signin" component={Signin} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </GestureHandlerRootView>
+      <NavigationContainer>
+        <GestureHandlerRootView style={styles.gestureHandler}>
+          <BottomSheetModalProvider>
+            <StatusBar style="light" backgroundColor={colors.secondary} />
+            <Stack.Navigator
+              initialRouteName={token ? 'App' : 'Signin'}
+              screenOptions={{
+                headerShown: false,
+                animation: 'slide_from_right',
+              }}>
+              <Stack.Screen name="App" component={App} />
+              <Stack.Screen name="Signin" component={Signin} />
+            </Stack.Navigator>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </NavigationContainer>
     </SafeAreaProvider>
   )
 }
