@@ -97,6 +97,8 @@ const Tab = ({ teamId }: TabProps) => {
       refreshing={loading}
       stickySectionHeadersEnabled
       style={styles.section}
+      initialNumToRender={3}
+      removeClippedSubviews
     />
   )
 }
