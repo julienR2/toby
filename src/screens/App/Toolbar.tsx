@@ -8,12 +8,7 @@ import Button from '../../components/Button'
 import IconButton from '../../components/IconButton'
 import * as Icons from '../../components/Icons'
 import Text from '../../components/Text'
-import {
-  Config,
-  SortType,
-  useStoreItem,
-  useStoreItemValue,
-} from '../../hooks/useStore'
+import { Config, SortType, useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import { put } from '../../utils/fetch'
 
