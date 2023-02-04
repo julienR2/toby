@@ -16,7 +16,6 @@ import { useFetchBookmarks } from '../../hooks/useBookmarks'
 import { useStoreItem } from '../../hooks/useStore'
 import colors from '../../theme/colors'
 import Tab from './Tab'
-import Toolbar from './Toolbar'
 
 const App = ({ navigation }: RootStackScreenProps<'App'>) => {
   const coffeeRef = React.useRef<CoffeeHandle | null>(null)
@@ -119,11 +118,6 @@ const App = ({ navigation }: RootStackScreenProps<'App'>) => {
             />
           </View>
         </View>
-        <Toolbar
-          teamId={
-            props.navigationState.routes[props.navigationState.index]?.key
-          }
-        />
       </View>
     ),
     [onLogout, onCoffee],

@@ -1,11 +1,8 @@
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
-import { StyleSheet } from 'react-native'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import { RootStackParamList } from '../types/navigation'
@@ -34,25 +31,17 @@ export default function Root() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <GestureHandlerRootView style={styles.gestureHandler}>
-          <BottomSheetModalProvider>
-            <StatusBar style="light" backgroundColor={colors.secondary} />
-            <Stack.Navigator
-              initialRouteName={token ? 'App' : 'Signin'}
-              screenOptions={{
-                headerShown: false,
-                animation: 'slide_from_right',
-              }}>
-              <Stack.Screen name="App" component={App} />
-              <Stack.Screen name="Signin" component={Signin} />
-            </Stack.Navigator>
-          </BottomSheetModalProvider>
-        </GestureHandlerRootView>
+        <StatusBar style="light" backgroundColor={colors.secondary} />
+        <Stack.Navigator
+          initialRouteName={token ? 'App' : 'Signin'}
+          screenOptions={{
+            headerShown: false,
+            animation: 'slide_from_right',
+          }}>
+          <Stack.Screen name="App" component={App} />
+          <Stack.Screen name="Signin" component={Signin} />
+        </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  gestureHandler: { flex: 1 },
-})
