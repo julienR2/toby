@@ -3,9 +3,10 @@
   "version": "0.0.13",
   "main": "index.js",
   "scripts": {
+    "ts-node": "TS_NODE_TRANSPILE_ONLY=true ts-node",
     "start": "expo start --dev-client",
     "dev": "expo run:android",
-    "release": "cd android && ./gradlew assembleRelease",
+    "release": "yarn ts-node bin/release.js && cd android && ./gradlew assembleRelease",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "typecheck": "tsc"
   },
@@ -47,7 +48,8 @@
     "eslint": "^8.25.0",
     "eslint-config-universe": "^11.1.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "ts-node": "^10.9.1"
   },
   "private": true
 }
