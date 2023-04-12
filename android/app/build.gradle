@@ -102,7 +102,7 @@ apply from: new File(reactNativeRoot, "react.gradle")
  * the correct one based on the CPU architecture of their device.
  */
 def enableSeparateBuildPerCPUArchitecture = false
-def password = getPassword("julien", "android_keystore")
+def password = getPassword("julien", "toby-" + UPLOAD_KEY_ALIAS)
 
 /**
  * Run Proguard to shrink the Java bytecode in release builds.
