@@ -1,12 +1,12 @@
 {
   "name": "toby",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "main": "index.js",
   "scripts": {
     "ts-node": "TS_NODE_TRANSPILE_ONLY=true ts-node",
     "start": "expo start --dev-client",
     "dev": "expo run:android",
-    "release": "yarn ts-node bin/release.js && cd android && ./gradlew assembleRelease",
+    "release": "yarn ts-node bin/release.ts && cd android && ./gradlew assembleRelease",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "typecheck": "tsc"
   },
